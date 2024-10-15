@@ -13,6 +13,8 @@ current_directory = os.getcwd()
 # โหลดโมเดลของคุณ
 model_path = os.path.join(current_directory, 'final_model.h5')
 
+model = tf.keras.models.load_model(model_path)
+
 # คำอธิบายของคลาสที่โมเดลทำนายได้
 class_labels = ['COVID19', 'NORMAL', 'PNEUMONIA', 'TB']
 
