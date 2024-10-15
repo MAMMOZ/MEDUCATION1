@@ -1,0 +1,34 @@
+name: Deploy Flask App to Heroku
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'  # หรือเวอร์ชันที่คุณต้องการ
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Deploy to Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP_NAME: your-heroku-app-name  # เปลี่ยนเป็นชื่อแอปของคุณ
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+          heroku auth:token
+          heroku git:remote -a $HEROKU_APP_NAME
+          git push heroku main
