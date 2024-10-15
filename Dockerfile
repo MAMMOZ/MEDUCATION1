@@ -1,4 +1,4 @@
-FROM python:3.11  # หรือ python:3.12 ตามที่คุณต้องการ
+FROM python:3.11  # หรือใช้ python:3.12 ถ้าคุณต้องการ
 
 # Set the working directory
 WORKDIR /app
@@ -6,7 +6,7 @@ WORKDIR /app
 # Copy the requirements file into the container
 COPY requirements.txt .
 
-# Install dependencies
+# Install distutils and then install the dependencies
 RUN apt-get update && apt-get install -y python3-distutils
 RUN pip install --no-cache-dir -r requirements.txt
 
