@@ -1,4 +1,6 @@
-FROM python:3.11  # หรือใช้ python:3.12 ถ้าคุณต้องการ
+FROM python:3.11
+
+# หรือใช้ python:3.12 ถ้าคุณต้องการ
 
 # Set the working directory
 WORKDIR /app
