@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meducation Feed</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .header {
+            background-color: #00c2b1;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+        .header img {
+            width: 24px;
+            position: absolute;
+            left: 15px;
+            top: 15px;
+        }
+        .container {
+            margin-top: 70px;
+            padding: 15px;
+        }
+        .post {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .post img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .post-header img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .post-header .name {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .post-header .time {
+            font-size: 12px;
+            color: gray;
+        }
+        .bottom-nav {
+            background-color: #00c2b1;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center; /* ปุ่มตรงกลาง */
+            padding: 10px 0;
+            gap: 60px; /* ระยะห่างระหว่างปุ่ม */
+        }
+        .bottom-nav img {
+            width: 20px;
+        }
+        .news-links {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #007bff;
+        }
+        .news-links a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .news-links a:hover {
+            text-decoration: underline;
+        }
+        .back-button {
+            background-color: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+            position: absolute;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <button class="back-button"  onclick="goBack()">&#x21A9;</button>
+        Feed
+    </div>
+
+    <!-- Content -->
+    <div class="container">
+        <!-- Post 1 -->
+        <div class="post">
+            <div class="post-header">
+                <img src="static/MEDRAY.png" alt="user icon">
+                <div>
+                    <div class="name">Meducation</div>
+                    <div class="time">8day ago</div>
+                </div>
+            </div>
+            <div class="post-content">
+               ขั้นตอนการทำ X-ray 
+            </div>
+            <img src="https://samitivejchinatown.com/uploads2/image/cxr.jpg" alt="post image">
+            <div class="news-links">
+                <p>ข่าวสารเพิ่มเติม:</p>
+                <a href="https://samitivejchinatown.com/th/article/health-check/chest-x-ray" target="_blank">-ขั้นตอนกาตรวจ X-ray</a> | 
+            </div>
+        </div>
+
+        <!-- Post 2 -->
+        <div class="post">
+            <div class="post-header">
+                <img src="static/MEDRAY.png" alt="user icon">
+                <div>
+                    <div class="name">Meducation</div>
+                    <div class="time">9day ago</div>
+                </div>
+            </div>
+            <div class="post-content">
+                เอ็กซเรย์ปอด (X-ray) อันตรายไหม?
+            </div>
+            <img src="https://static.hd.co.th/system/redactor2_assets/images/12982/content_BANNER_LUNG_X-RAY.jpg" alt="post image">
+            <div class="news-links">
+                <p>ข่าวสารเพิ่มเติม:</p>
+                <a href="https://hdmall.co.th/blog/c/lung-xray/#:~:text=%E0%B9%80%E0%B8%AD%E0%B8%81%E0%B8%8B%E0%B9%80%E0%B8%A3%E0%B8%A2%E0%B9%8C%E0%B8%9B%E0%B8%AD%E0%B8%94%20%E0%B8%AB%E0%B8%A3%E0%B8%B7%E0%B8%AD%20CXR%20%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3,%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%81%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%95%E0%B8%A3%E0%B8%A7%E0%B8%88" target="_blank">เอ็กซเรย์ปอด อันตรายไหม?</a>
+            </div>
+        </div>
+    </div>
+
+<!-- Post 3 -->
+<div class="post">
+    <div class="post-header">
+        <img src="static/MEDRAY.png" alt="user icon">
+        <div>
+            <div class="name">Meducation</div>
+            <div class="time">10day ago</div>
+        </div>
+    </div>
+    <div class="post-content">
+       ปอดบวมอันตรายไหม?
+    </div>
+    <img src="https://mp-cms.medparkhospital.com/assets/891a828d-5b2b-4685-b244-5f6725a00aed/pneumonia.jpeg" alt="post image">
+    <div class="news-links">
+        <p>ข่าวสารเพิ่มเติม:</p>
+        <a href="https://www.medparkhospital.com/disease-and-treatment/pneumonia">ปอดบวมน่ากลัวแค่ไหนกัน</a>
+    </div>
+
+</div>
+</div>
+<!-- Post 4 -->
+<div class="post">
+    <div class="post-header">
+        <img src="static/MEDRAY.png" alt="user icon">
+        <div>
+            <div class="name">Meducation</div>
+            <div class="time">8day ago</div>
+        </div>
+    </div>
+    <div class="post-content">
+       ลักษณะการเกิดวัณโรค
+    </div>
+    <img src="https://mp-cms.medparkhospital.com/assets/701c82a7-c7fd-4710-8ef5-b5d496defb84/pulmonary-tuberculosis.jpeg" alt="post image">
+    <div class="news-links">
+        <p>ข่าวสารเพิ่มเติม:</p>
+        <a href="https://www.medparkhospital.com/disease-and-treatment/pulmonary-tuberculosis">-วัณโรคมีลักษณะอย่างไร</a> | 
+    </div>
+</div>
+<!-- Post 5 -->
+<div class="post">
+    <div class="post-header">
+        <img src="static/MEDRAY.png" alt="user icon">
+        <div>
+            <div class="name">Meducation</div>
+            <div class="time">8day ago</div>
+        </div>
+    </div>
+    <div class="post-content">
+       อาหารบำรุงปอด 
+    </div>
+    <img src="https://www.synphaet.co.th/wp-content/uploads/2021/07/75076205_xl-scaled.jpg" alt="post image">
+    <div class="news-links">
+        <p>ข่าวสารเพิ่มเติม:</p>
+        <a href="https://www.synphaet.co.th/10-%E0%B9%81%E0%B8%AB%E0%B8%A5%E0%B9%88%E0%B8%87%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%9A%E0%B8%B3%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B8%9B%E0%B8%AD%E0%B8%94/" target="_blank">-อาหารบำรุงปอด</a> | 
+    </div>
+</div>
+<!-- Post 6 -->
+<div class="post">
+    <div class="post-header">
+        <img src="C:/Users/user/Desktop/MEDUCATION/static/MEDRAY.png" alt="user icon">
+        <div>
+            <div class="name">Meducation</div>
+            <div class="time">8day ago</div>
+        </div>
+    </div>
+    <div class="post-content">
+       ข้อควรรู้
+    </div>
+    <img src="https://pyt-storage.sgp1.digitaloceanspaces.com/wp-content/uploads/2023/09/PT2-00334-2023_Template-%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B9%80%E0%B8%9B%E0%B8%B4%E0%B8%94%E0%B8%9A%E0%B8%97%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1.jpg" alt="post image">
+    <div class="news-links">
+        <p>ข่าวสารเพิ่มเติม:</p>
+        <a href="https://www.phyathai.com/th/article/3164-%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%84%E0%B8%A7%E0%B8%A3%E0%B8%A3%E0%B8%B9%E0%B9%89__%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%A1%E0%B8%B5%E0%B8%AD%E0%B8%B2%E0%B8%81%E0%B8%B2" target="_blank">พ่อแม่ควรรู้</a> | 
+    </div>
+</div>
+<!-- Post 7 -->
+<div class="post">
+    <div class="post-header">
+        <img src="static/MEDRAY.png" alt="user icon">
+        <div>
+            <div class="name">Meducation</div>
+            <div class="time">8day ago</div>
+        </div>
+    </div>
+    <div class="post-content">
+      โควิด-19
+    </div>
+    <img src="https://vichaivej-nongkhaem.com/wp-content/uploads/2021/07/%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B9%82%E0%B8%84%E0%B8%A7%E0%B8%B4%E0%B8%94%E0%B8%AB%E0%B8%B2%E0%B8%81%E0%B9%80%E0%B8%8A%E0%B8%B7%E0%B9%89%E0%B8%AD%E0%B8%A5%E0%B8%87%E0%B8%9B%E0%B8%AD%E0%B8%94%E0%B8%95%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%94%E0%B8%B9%E0%B9%81%E0%B8%A5%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B9%80%E0%B8%AD%E0%B8%87%E0%B8%AD%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B9%84%E0%B8%A3-1024x538.jpg" alt="post image">
+    <div class="news-links">
+        <p>ข่าวสารเพิ่มเติม:</p>
+        <a href="https://vichaivej-nongkhaem.com/health-info/%E0%B9%80%E0%B8%8A%E0%B8%B7%E0%B9%89%E0%B8%AD%E0%B8%A5%E0%B8%87%E0%B8%9B%E0%B8%AD%E0%B8%94%E0%B8%94%E0%B8%B9%E0%B9%81%E0%B8%A5%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B9%80%E0%B8%AD%E0%B8%87?srsltid=AfmBOoqh5kOtvhWVzE4F26cIaPHn32b60hxRngBMEy0LOm6xxHiKAtGB"_blank">โควิด-19</a> | 
+    </div>
+</div>
+<!-- Post 8 -->
+<div class="post">
+    <div class="post-header">
+        <img src="static/MEDRAY.png" alt="user icon">
+        <div>
+            <div class="name">Meducation</div>
+            <div class="time">8day ago</div>
+        </div>
+    </div>
+    <div class="post-content">
+      การบริหารออกกำลังการพัฒนาปอด
+    </div>
+    <img src="https://img.wongnai.com/p/1920x0/2021/08/04/db445143b0d6442ca632527329e29ec0.jpg" alt="post image">
+    <div class="news-links">
+        <p>ข่าวสารเพิ่มเติม:</p>
+        <a href="https://www.wongnai.com/articles/lung-exercises">บริหารปอด</a> | 
+    </div>
+</div>
+<!-- Post 9 -->
+<div class="post">
+    <div class="post-header">
+        <img src="static/MEDRAY.png" alt="user icon">
+        <div>
+            <div class="name">Meducation</div>
+            <div class="time">8day ago</div>
+        </div>
+    </div>
+    <div class="post-content">
+       สังเกตอาการโควิดลงปอด
+    </div>
+    <img src="https://www.petcharavejhospital.com/images/thumbnail/thumbnail_20220305164632.jpeg" alt="post image">
+    <div class="news-links">
+        <p>ข่าวสารเพิ่มเติม:</p>
+        <a href="https://www.petcharavejhospital.com/th/Article/article_detail/Observe-the-symptoms-of-COVID-19-in-the-lungs" target="_blank">โควิดลงปอดอาการเป็นเช่นนี้</a> | 
+    </div>
+</div>
+<!-- Post 10 -->
+<div class="post">
+    <div class="post-header">
+        <img src="static/MEDRAY.png" alt="user icon">
+        <div>
+            <div class="name">Meducation</div>
+            <div class="time">8day ago</div>
+        </div>
+    </div>
+    <div class="post-content">
+        สังเกตอาการเตือน “วัณโรค” 
+    </div>
+    <img src="https://www.sikarin.com/wp-content/uploads/2021/12/9585823430740-1536x1536.jpg" alt="post image">
+    <div class="news-links">
+        <p>ข่าวสารเพิ่มเติม:</p>
+        <a href="https://www.sikarin.com/health/%E0%B8%A7%E0%B8%B1%E0%B8%93%E0%B9%82%E0%B8%A3%E0%B8%84-%E0%B9%82%E0%B8%A3%E0%B8%84%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B9%88%E0%B8%AD%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%95%E0%B9%89%E0%B8%AD#:~:text=%E0%B8%A7%E0%B8%B1%E0%B8%93%E0%B9%82%E0%B8%A3%E0%B8%84%20(Tuberculosis%3ATB)%20%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99,%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%94%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B1%E0%B8%81%E0%B9%80%E0%B8%AA%E0%B8%9A%E0%B9%84%E0%B8%94%E0%B9%89">สังเกตอาการเตือน “วัณโรค”</a> | 
+    </div>
+</div>
+<!-- Post 11 -->
+<div class="post">
+    <div class="post-header">
+        <img src="static/MEDRAY.png" alt="user icon">
+        <div>
+            <div class="name">Meducation</div>
+            <div class="time">8day ago</div>
+        </div>
+    </div>
+    <div class="post-content">
+        10 อาหารบำรุงปอด อยากปอดแข็งแรงหามาทานด่วน!!รู้ไว้จะได้ไม่ป่วย|โรคปอด
+    </div>
+    <img src="https://i.ytimg.com/vi/njuKkGkNOFE/maxresdefault.jpg" alt="post image">
+    <div class="news-links">
+        <p>ข่าวสารเพิ่มเติม:</p>
+        <a href="https://youtu.be/njuKkGkNOFE?feature=shared">10 อาหารบำรุงปอด อยากปอดแข็งแรงหามาทานด่วน!!รู้ไว้จะได้ไม่ป่วย|โรคปอด”</a> | 
+    </div>
+</div>
+<!-- Post 12 -->
+<div class="post">
+    <div class="post-header">
+        <img src="static/MEDRAY.png" alt="user icon">
+        <div>
+            <div class="name">Meducation</div>
+            <div class="time">8day ago</div>
+        </div>
+    </div>
+    <div class="post-content">
+        ทำไมต้อง X-Ray ปอด มีประโยชน์หรือไม่
+
+    </div>
+    <img src="https://i.ytimg.com/vi/fTCTKRtlTU4/maxresdefault.jpg" alt="post image">
+    <div class="news-links">
+        <p>ข่าวสารเพิ่มเติม:</p>
+        <a href="https://youtu.be/fTCTKRtlTU4?feature=shared">ทำไมต้อง X-Ray ปอด มีประโยชน์หรือไม่
+            ”</a> | 
+    </div>
+</div>
+<!-- Post 13 -->
+<div class="post">
+    <div class="post-header">
+        <img src="static/MEDRAY.png" alt="user icon">
+        <div>
+            <div class="name">Meducation</div>
+            <div class="time">8day ago</div>
+        </div>
+    </div>
+    <div class="post-content">
+        วิธีสังเกตอาการเมื่อติดโควิด-19 ว่า “เชื้อลงปอด” แล้วหรือยัง?
+
+    </div>
+    <img src="https://th.bing.com/th/id/OIP.oMd4sfEwM8uOD2EknR2n6gHaEK?rs=1&pid=ImgDetMain" alt="post image">
+    <div class="news-links">
+        <p>ข่าวสารเพิ่มเติม:</p>
+        <a href="https://youtu.be/w24EMCcpSug?feature=shared">วิธีสังเกตอาการเมื่อติดโควิด-19 ว่า “เชื้อลงปอด” แล้วหรือยัง?
+            ”</a> | 
+    </div>
+</div>
+<!-- Post 14 -->
+<div class="post">
+    <div class="post-header">
+        <img src="static/MEDRAY.png" alt="user icon">
+        <div>
+            <div class="name">Meducation</div>
+            <div class="time">8day ago</div>
+        </div>
+    </div>
+    <div class="post-content">
+        ปอดติดเชื้อ คลิป MU [by Mahidol]
+
+    </div>
+    <img src="https://i.ytimg.com/vi/by9shEUjr1w/hqdefault.jpg" alt="post image">
+    <div class="news-links">
+        <p>ข่าวสารเพิ่มเติม:</p>
+        <a href="https://youtu.be/by9shEUjr1w?feature=shared">ปอดติดเชื้อ คลิป MU [by Mahidol]
+            ”</a> | 
+    </div>
+</div>
+<!-- Post 15 -->
+<div class="post">
+    <div class="post-header">
+        <img src="static/MEDRAY.png" alt="user icon">
+        <div>
+            <div class="name">Meducation</div>
+            <div class="time">8day ago</div>
+        </div>
+    </div>
+    <div class="post-content">
+        รายการสุขภาพดีศิริราช ตอน รู้ทัน "วัณโรคปอด" นั่งชิดก็ติดได้
+
+
+    </div>
+    <img src="https://th.bing.com/th/id/R.a7a070c9a085da5d82f3df932e8fb065?rik=ohfQVKxA5HoKJQ&pid=ImgRaw&r=0" alt="post image">
+    <div class="news-links">
+        <p>ข่าวสารเพิ่มเติม:</p>
+        <a href="https://youtu.be/mgnLWQGOlSU?feature=shared">รายการสุขภาพดีศิริราช ตอน รู้ทัน "วัณโรคปอด" นั่งชิดก็ติดได้
+
+            ”</a> | 
+    </div>
+</div>
+<!-- Post 16 -->
+<div class="post">
+    <div class="post-header">
+        <img src="static/MEDRAY.png" alt="user icon">
+        <div>
+            <div class="name">Meducation</div>
+            <div class="time">8day ago</div>
+        </div>
+    </div>
+    <div class="post-content">
+        รู้ได้อย่างไรว่าเป็นวัณโรค
+    </div>
+    <img src="https://th.bing.com/th/id/OIP.yrohjfiSfeT-eBCKn4aS-AHaEK?rs=1&pid=ImgDetMain" alt="post image">
+    <div class="news-links">
+        <p>ข่าวสารเพิ่มเติม:</p>
+        <a href="https://youtu.be/D8zD4tfCjbo?feature=shared">รู้ได้อย่างไรว่าเป็นวัณโรค
+            ”</a> | 
+    </div>
+</div>
+<!-- Post 17 -->
+<div class="post">
+    <div class="post-header">
+        <img src="static/MEDRAY.png" alt="user icon">
+        <div>
+            <div class="name">Meducation</div>
+            <div class="time">8day ago</div>
+        </div>
+    </div>
+    <div class="post-content">
+        รู้ฝึกหายใจ ตอน ฝึกหายใจฟื้นฟูปอดให้แข็งแรง
+    </div>
+    <img src="https://i.ytimg.com/vi/_jYj9nOG5Ro/hqdefault.jpg" alt="post image">
+    <div class="news-links">
+        <p>ข่าวสารเพิ่มเติม:</p>
+        <a href="https://youtu.be/_jYj9nOG5Ro?feature=shared">ฝึกหายใจ ตอน ฝึกหายใจฟื้นฟูปอดให้แข็งแรง
+            ”</a> | 
+    </div>
+</div>
+<!-- Post 18 -->
+<div class="post">
+    <div class="post-header">
+        <img src="static/MEDRAY.png" alt="user icon">
+        <div>
+            <div class="name">Meducation</div>
+            <div class="time">8day ago</div>
+        </div>
+    </div>
+    <div class="post-content">
+        Tips & Tricks – EP10 ท่าบริหารฝึกหายใจ บริหารปอดให้แข็งแรง
+
+    </div>
+    <img src="https://i.ytimg.com/vi/a-DqhnGWL1c/maxresdefault.jpg" alt="post image">
+    <div class="news-links">
+        <p>ข่าวสารเพิ่มเติม:</p>
+        <a href="https://youtu.be/a-DqhnGWL1c?feature=shared">Tips & Tricks – EP10 ท่าบริหารฝึกหายใจ บริหารปอดให้แข็งแรง
+
+            ”</a> | 
+    </div>
+</div>
+<!-- Post 18 -->
+<div class="post">
+    <div class="post-header">
+        <img src="static/MEDRAY.png" alt="user icon">
+        <div>
+            <div class="name">Meducation</div>
+            <div class="time">8day ago</div>
+        </div>
+    </div>
+    <div class="post-content">
+        ชวนรู้จัก “โรคปอดบวม” ภาวะเสี่ยงที่ป้องกันได้
+
+    </div>
+    <img src="https://directus-chg3gk.chularat3inter.com/assets/c06e92a9-27ef-4be6-b23e-7e84d5b366a9?key=preset-q75-webp" alt="post image">
+    <div class="news-links">
+        <p>ข่าวสารเพิ่มเติม:</p>
+        <a href="https://www.chularat3inter.com/th/contents/what-is-pneumonia">ชวนรู้จัก “โรคปอดบวม” ภาวะเสี่ยงที่ป้องกันได้
+
+
+            ”</a> | 
+    </div>
+</div>
+<script>
+    function goBack() {
+            window.history.back();
+            
+        }
+</script>
+</body>
+</html>
+
+
+
+
+
+

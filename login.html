@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            /* ซ่อนการเลื่อนเมื่อโหลด */
+        }
+        
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #FCFAEE;
+            background-image: url('logoforsignup.png');
+            background-size: 25rem;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        
+        
+        .text-overlay {
+            position: absolute;
+            top: 35px;
+            left: 35px;
+            color: #6666;
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 2px rgba(241, 238, 238, 0.7);
+        }
+        
+        .login-container {
+            flex: 0.8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-box {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .logo {
+            width: 150px;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            color: #146c94;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-group {
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ffff;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: #f8f8f8;
+            transition: border 0.3s;
+        }
+        
+        .input-group input:focus {
+            border-color: #4f46e5;
+            outline: none;
+        }
+        
+        .login-btn,
+        .signup-btn {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: background-color 0.3s;
+        }
+        
+        .login-btn {
+            background-color: #19a7ce;
+        }
+        
+        .login-btn:hover {
+            background-color: #19a7ce;
+        }
+        
+        .signup-btn {
+            background-color: #00CED1;
+        }
+        
+        .signup-btn:hover {
+            background-color: #00CED1;
+        }
+        
+        .signup-text {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .signup-text a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .signup-text a:hover {
+            text-decoration: underline;
+        }
+        /* Media Queries for Responsive Design */
+        
+        @media (max-width: 768px) {
+            .login-box {
+                max-width: 90%;
+            }
+        }
+        
+        @media (max-width: 500px) {
+            .image-container {
+                display: none;
+                /* ซ่อนรูปภาพเมื่อหน้าจอเล็กกว่า 500px */
+            }
+            h1 {
+                font-size: 1.5rem;
+                /* ลดขนาดฟอนต์สำหรับหน้าจอเล็ก */
+            }
+            .input-group input {
+                font-size: 0.9rem;
+                /* ขนาดฟอนต์เล็กลงสำหรับช่องกรอก */
+            }
+            .signup-btn,
+            .login-btn {
+                font-size: 0.9rem;
+                /* ขนาดฟอนต์ปุ่มเล็กลง */
+            }
+        }
+        .right-box {
+            flex: 1; /* ขยายให้เติมพื้นที่ที่เหลือ */
+            display: flex;
+            justify-content: center; /* จัดกลางในแนวนอน */
+            align-items: center; /* จัดกลางในแนวตั้ง */
+            background-color: #ffff; /* สีพื้นหลังของส่วนขวา */
+        }
+
+        .right-box img {
+            max-width: 100%; /* ทำให้รูปมีความกว้างเต็มที่ */
+            height: auto; /* ทำให้รักษาสัดส่วน */
+            border-radius: 8px; /* มุมมนของรูป */}
+    </style>
+</head>
+
+<body>
+    <div class="loading"></div>
+    <!-- หน้าจอโหลด -->
+    <div class="right-box">
+        <img src="https://cdn-icons-png.flaticon.com/256/8662/8662512.png" alt="">
+    </div>
+    <div class="image-container">
+        <div class="text-overlay"></div>
+    </div>
+
+    <div class="login-container" style="display: none;">
+        <!-- ซ่อน container จนกว่าจะโหลดเสร็จ -->
+        <div class="login-box">
+            
+            <h1>Login</h1>
+            <div class="input-group">
+                <label for="username">Email</label>
+                <input type="text" id="username" placeholder="Email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+            <button id="login-button" class="login-btn">Login</button>
+            <p class="signup-text">or <button id="signup-button" class="signup-btn">Sign Up</button></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginButton = document.getElementById('login-button');
+            const signupButton = document.getElementById('signup-button');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+
+            // Hide the loading screen and show the login container after a delay
+            setTimeout(() => {
+                document.querySelector('.loading').style.display = 'none';
+                document.querySelector('.login-container').style.display = 'flex'; // แสดงหน้าเข้าสู่ระบบ
+            }, 2000); // 2 วินาที
+
+            // Function to handle login
+            function handleLogin() {
+                const username = usernameInput.value;
+                const password = passwordInput.value;
+
+                // Simple authentication check
+                if (username === "admin" && password === "password") {
+                    alert("Login successful!");
+                    window.location.href = 'app.html'; // Navigate to the main page after login
+                } else {
+                    alert("Invalid credentials!");
+                }
+            }
+
+            // Login button click
+            loginButton.addEventListener('click', function() {
+                handleLogin();
+            });
+
+            // Listen for 'Enter' key press on both input fields
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    handleLogin();
+                }
+            });
+
+            signupButton.addEventListener('click', function() {
+                window.location.href = 'signup.html'; // Navigate to the signup page
+            });
+        });
+    </script>
+
+</body>
+
+</html>

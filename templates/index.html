@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meducation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white; /* พื้นหลังสีขาว */
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            text-align: center;
+            padding: 40px;
+            width: 100%;
+            height: 100vh; /* กล่องขาวครอบคลุมเต็มหน้าจอ */
+            border-radius: 0; /* เอามุมโค้งออก */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            font-size: 40px;
+            color: #333;
+            margin-top: 40px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        .logo img {
+            width: 150px;
+            margin-bottom: 30px;
+        }
+        .right-box {
+            flex: 1; /* ขยายให้เติมพื้นที่ที่เหลือ */
+            display: flex;
+            justify-content: center; /* จัดกลางในแนวนอน */
+            align-items: center; /* จัดกลางในแนวตั้ง */
+            background-color: #ffff; /* สีพื้นหลังของส่วนขวา */
+        }
+        .right-box img {
+            max-width: 100%; /* ทำให้รูปมีความกว้างเต็มที่ */
+            height: auto; /* ทำให้รักษาสัดส่วน */
+            border-radius: 8px; /* มุมมนของรูป */
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 30px;
+            border: none;
+            background-color: #00c2b1;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            max-width: 400px; /* จำกัดความกว้างปุ่ม */
+        }
+        .btn:hover {
+            background-color: #009688;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MEDUCATION</h1>
+        <div class="right-box">
+            <img src="https://cdn-icons-png.flaticon.com/256/8662/8662512.png" alt="">
+        </div>
+        <button class="btn">FEED</button>
+        <button class="btn" onclick="goToUpload()">UPLOAD</button> <!-- เพิ่มฟังก์ชัน goToUpload -->
+    </div>
+
+    <script>
+        function goToUpload() {
+            window.location.href = 'upload.html'; // เปลี่ยนเส้นทางไปยังหน้า upload
+        }
+        function goToFeed() {
+            window.location.href ="{{url_for('index')}}"; // เปลี่ยนเส้นทางไปยังหน้า feed
+        }
+    </script>
+</body>
+</html>

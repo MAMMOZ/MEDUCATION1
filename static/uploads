@@ -1,0 +1,60 @@
+import numpy as np
+import tensorflow as tf
+from keras.preprocessing import image
+from flask import Flask, render_template, request, jsonify
+import os
+
+app = Flask(__name__)
+
+# ตรวจสอบว่าไฟล์โมเดลมีอยู่จริงหรือไม่
+model_path = 'final_model.h5'
+if not os.path.exists(model_path):
+    print(f"Error: Model file '{model_path}' not found!")
+    exit()
+
+# โหลดโมเดลที่ฝึกแล้ว
+model = tf.keras.models.load_model(model_path)
+
+# คลาสที่โมเดลจะทำนาย
+class_labels = ['COVID19', 'NORMAL', 'PNEUMONIA', 'TB']
+
+@app.route('/')
+def index():
+    return render_template('index1.html')
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    # รับไฟล์ภาพจากฟอร์ม
+    if 'image' not in request.files:
+        return jsonify({'error': 'No file part'})
+    
+    file = request.files['image']
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'})
+    
+    # ตรวจสอบว่าไฟล์ภาพถูกอัปโหลด
+    img_path = os.path.join('static', 'uploads', file.filename)
+    file.save(img_path)  # บันทึกไฟล์ภาพ
+
+    # โหลดภาพและปรับขนาด
+    img = image.load_img(img_path, target_size=(400, 400))
+
+    # แปลงภาพเป็น array และ normalize
+    x = image.img_to_array(img) / 255.0
+    x = np.expand_dims(x, axis=0)
+
+    # ทำนายผลลัพธ์
+    preds = model.predict(x)
+
+    # หาคลาสที่มีค่าความมั่นใจสูงสุด
+    pred_class = np.argmax(preds)
+    confidence = np.max(preds) * 100
+
+    return jsonify({
+        'predicted_class': class_labels[pred_class],
+        'confidence': confidence,
+        'image_url': img_path
+    })
+
+if __name__ == '__main__':
+    app.run(debug=True)
