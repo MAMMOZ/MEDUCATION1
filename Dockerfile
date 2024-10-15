@@ -1,11 +1,20 @@
-FROM python:3.10-slim
+# Use the official Python image from the Docker Hub
+FROM python:3.12-slim
 
-# ติดตั้ง dependencies ที่จำเป็น
-COPY requirements.txt ./
+# Set the working directory
+WORKDIR /app
+
+# Copy the requirements.txt file into the container
+COPY requirements.txt .
+
+# Install the dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# คัดลอกโค้ดไปยัง container
+# Copy the rest of your application code
 COPY . .
 
-# ตั้งค่าเริ่มต้น
-CMD ["gunicorn", "app:app"]
+# Expose the port the app runs on
+EXPOSE 5000
+
+# Run the Flask app
+CMD ["python", "app.py"]
