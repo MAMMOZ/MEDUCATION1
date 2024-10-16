@@ -1,20 +1,20 @@
-# ใช้ภาพฐานจาก Python 3.9
-FROM python:3.10
+# Use Python 3.10 as the base image
+FROM python:3.10-slim
 
-# ตั้งค่าโฟลเดอร์ทำงาน
+# Set the working directory
 WORKDIR /app
 
-# คัดลอกไฟล์ requirements.txt และไฟล์แอปไปยัง container
+# Copy the requirements file to the container
 COPY requirements.txt .
 
-# ติดตั้ง dependencies
+# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# คัดลอกโค้ดแอปพลิเคชัน
+# Copy the application code to the container
 COPY . .
 
-# ตั้งค่า PORT ที่แอปจะใช้
+# Set the port the app runs on
 EXPOSE 5000
 
-# คำสั่งในการรันแอปพลิเคชัน
+# Command to run the application
 CMD ["python", "app.py"]
