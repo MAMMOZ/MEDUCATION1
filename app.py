@@ -9,10 +9,8 @@ app = Flask(__name__)
 
 current_directory = os.getcwd()
 
-# ใช้ os.path.join เพื่อสร้างเส้นทางที่เป็นกลางกับระบบปฏิบัติการ
 # โหลดโมเดลของคุณ
 model_path = os.path.join(current_directory, 'final_model.h5')
-
 model = tf.keras.models.load_model(model_path)
 
 # คำอธิบายของคลาสที่โมเดลทำนายได้
@@ -56,5 +54,5 @@ def predict():
     return render_template('result.html', prediction=result_label, confidence=confidence)
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
+    # เรียกใช้งาน Flask โดยไม่ใช้ signal
+    app.run(debug=True, threaded=True)  # เพิ่ม threaded=True เพื่อรองรับการทำงานแบบหลายเธรด
