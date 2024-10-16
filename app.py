@@ -54,5 +54,4 @@ def predict():
     return render_template('result.html', prediction=result_label, confidence=confidence)
 
 if __name__ == '__main__':
-    # เรียกใช้งาน Flask โดยไม่ใช้ signal
-    app.run(debug=True, threaded=True)  # เพิ่ม threaded=True เพื่อรองรับการทำงานแบบหลายเธรด
+    app.run(debug=True, threaded=True)  # ใช้ threaded=True เพื่อให้รองรับการทำงานแบบหลายเธรด
