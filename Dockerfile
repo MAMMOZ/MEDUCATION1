@@ -1,5 +1,5 @@
 # ใช้ภาพฐานจาก Python 3.9
-FROM python:3.7.5
+FROM python:3.10
 
 # ตั้งค่าโฟลเดอร์ทำงาน
 WORKDIR /app
