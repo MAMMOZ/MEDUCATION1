@@ -1,5 +1,5 @@
-numpy
-tensorflow
-flask
-keras
-streamlit
+Flask==2.2.3
+tensorflow==2.16.1
+numpy<2.0.0
+Pillow==9.3.0
+keras==2.16.0  # หรือเวอร์ชันที่ต้องการ
