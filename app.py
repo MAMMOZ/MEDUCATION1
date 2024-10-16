@@ -1,27 +1,23 @@
 import numpy as np
 import tensorflow as tf
 from keras.utils import load_img, img_to_array
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, File, UploadFile, Request
 from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from fastapi import Request
 from io import BytesIO
 import os
 
 app = FastAPI()
-
-# กำหนดเส้นทางในการใช้ไฟล์ static
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-# กำหนด templates
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="templates")  # ชี้ไปยังไดเรกทอรีที่เก็บเทมเพลต
 
 current_directory = os.getcwd()
-
-# โหลดโมเดลของคุณ
 model_path = os.path.join(current_directory, 'final_model.h5')
-model = tf.keras.models.load_model(model_path)
+
+# โหลดโมเดลเมื่อเซิร์ฟเวอร์เริ่มต้น
+@app.on_event("startup")
+async def startup_event():
+    global model
+    model = tf.keras.models.load_model(model_path)
 
 # คำอธิบายของคลาสที่โมเดลทำนายได้
 class_labels = ['COVID19', 'NORMAL', 'PNEUMONIA', 'TB']
@@ -40,8 +36,8 @@ async def feed(request: Request):
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
-    if file.filename == '':
-        return {"error": "Error: No selected file"}
+    if not file:
+        return {"error": "Error: No image file uploaded"}
 
     # โหลดภาพจากไฟล์อัปโหลด โดยใช้ stream เพื่อแปลงเป็น BytesIO
     img = load_img(BytesIO(await file.read()), target_size=(400, 400))  # ปรับขนาดภาพให้ตรงกับขนาดที่โมเดลต้องการ
@@ -56,8 +52,8 @@ async def predict(file: UploadFile = File(...)):
 
     result_label = class_labels[predicted_class]
 
-    return templates.TemplateResponse("result.html", {"request": {}, "prediction": result_label, "confidence": confidence})
+    return templates.TemplateResponse("result.html", {"request": request, "prediction": result_label, "confidence": confidence})
 
 if __name__ == '__main__':
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
