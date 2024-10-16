@@ -1,19 +1,14 @@
-FROM python:3.11
+FROM python:3.12
 
-# หรือใช้ python:3.12 ถ้าคุณต้องการ
+# Install required packages
+RUN apt-get update && apt-get install -y python3-distutils
 
 # Set the working directory
-WORKDIR /app
+WORKDIR /mount/src/meducation1
 
-# Copy the requirements file into the container
+# Copy the requirements file
 COPY requirements.txt .
 
-# Install distutils and then install the dependencies
-RUN apt-get update && apt-get install -y python3-distutils
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the rest of your application code
-COPY . .
-
-# Command to run your application
-CMD ["gunicorn", "your_app:app", "-b", "0.0.0.0:5000"]
+# Install dependencies
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
