@@ -1,5 +1,5 @@
-Flask==2.2.3
-tensorflow==2.16.1
-numpy==1.23.5  # ตรวจสอบว่าเวอร์ชันนี้เข้ากับ Python 3.9
-Pillow==9.3.0
-Werkzeug==2.2.3
+numpy
+tensorflow
+flask
+keras
+streamlit
