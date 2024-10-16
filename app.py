@@ -1,11 +1,21 @@
 import numpy as np
 import tensorflow as tf
 from keras.utils import load_img, img_to_array
-from flask import Flask, request, render_template
+from fastapi import FastAPI, UploadFile, File
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from fastapi import Request
 from io import BytesIO
 import os
 
-app = Flask(__name__)
+app = FastAPI()
+
+# กำหนดเส้นทางในการใช้ไฟล์ static
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# กำหนด templates
+templates = Jinja2Templates(directory="templates")
 
 current_directory = os.getcwd()
 
@@ -16,30 +26,25 @@ model = tf.keras.models.load_model(model_path)
 # คำอธิบายของคลาสที่โมเดลทำนายได้
 class_labels = ['COVID19', 'NORMAL', 'PNEUMONIA', 'TB']
 
-@app.route('/')
-def web():
-    return render_template('web.html')
+@app.get("/", response_class=HTMLResponse)
+async def web(request: Request):
+    return templates.TemplateResponse("web.html", {"request": request})
 
-@app.route('/upload')
-def upload():
-    return render_template('Upload.html')
+@app.get("/upload", response_class=HTMLResponse)
+async def upload(request: Request):
+    return templates.TemplateResponse("Upload.html", {"request": request})
 
-@app.route('/feed')
-def feed():
-    return render_template('feed.html')
+@app.get("/feed", response_class=HTMLResponse)
+async def feed(request: Request):
+    return templates.TemplateResponse("feed.html", {"request": request})
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    if 'image' not in request.files:
-        return "Error: No image file uploaded"
-
-    file = request.files['image']
-
+@app.post("/predict")
+async def predict(file: UploadFile = File(...)):
     if file.filename == '':
-        return "Error: No selected file"
+        return {"error": "Error: No selected file"}
 
     # โหลดภาพจากไฟล์อัปโหลด โดยใช้ stream เพื่อแปลงเป็น BytesIO
-    img = load_img(BytesIO(file.read()), target_size=(400, 400))  # ปรับขนาดภาพให้ตรงกับขนาดที่โมเดลต้องการ
+    img = load_img(BytesIO(await file.read()), target_size=(400, 400))  # ปรับขนาดภาพให้ตรงกับขนาดที่โมเดลต้องการ
     x = img_to_array(img)
     x = np.expand_dims(x, axis=0)  # เพิ่ม dimension ให้ตรงกับ input ของโมเดล
     x = x / 255.0  # Normalization
@@ -51,7 +56,8 @@ def predict():
 
     result_label = class_labels[predicted_class]
 
-    return render_template('result.html', prediction=result_label, confidence=confidence)
+    return templates.TemplateResponse("result.html", {"request": {}, "prediction": result_label, "confidence": confidence})
 
 if __name__ == '__main__':
-    app.run(debug=True, threaded=True)  # ใช้ threaded=True เพื่อให้รองรับการทำงานแบบหลายเธรด
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
