@@ -2,5 +2,3 @@ Flask==2.2.3
 tensorflow==2.16.1
 numpy==1.23.5
 Pillow==9.3.0
-streamlit
-setuptools
