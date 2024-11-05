@@ -3,11 +3,12 @@ import tensorflow as tf
 from keras.utils import load_img, img_to_array
 import os
 import streamlit as st
+from tensorflow.keras.models import load_model
 
 # Load the model
 current_directory = os.getcwd()
 model_path = os.path.join(current_directory, 'final_model.h5')
-model = tf.keras.models.save(model_path)
+model = load_model(model_path)
 
 # Define the class labels
 class_labels = ['COVID19', 'NORMAL', 'PNEUMONIA', 'TB']
