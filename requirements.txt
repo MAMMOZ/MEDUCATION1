@@ -4,3 +4,4 @@ numpy==1.23.5
 Pillow==9.3.0
 gunicorn==20.1.0
 Werkzeug
+streamlit >= 1.9.2
