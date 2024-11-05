@@ -8,6 +8,8 @@ from tensorflow.keras.models import load_model
 # Load the model
 current_directory = os.getcwd()
 model_path = os.path.join(current_directory, 'final_model.h5')
+if not os.path.exists(model_path):
+    print(f"Error: Model file '{model_path}' not found!")
 model = load_model(model_path)
 
 # Define the class labels
