@@ -3,7 +3,6 @@ import tensorflow as tf
 from keras.utils import load_img, img_to_array
 import os
 import streamlit as st
-from tensorflow.keras.models import load_model
 
 # Load the model
 def load_model_from_file():
@@ -11,7 +10,7 @@ def load_model_from_file():
     model_path = os.path.join(current_directory, 'final_model.h5')
     print(f"Model path: {model_path}")  # Debugging line
     if os.path.exists(model_path):
-        model = load_model(model_path)
+        model = tf.keras.models.load_model(model_path)
         print("Model loaded successfully.")
         return model
     else:
