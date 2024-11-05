@@ -7,7 +7,7 @@ import streamlit as st
 # Load the model
 current_directory = os.getcwd()
 model_path = os.path.join(current_directory, 'final_model.h5')
-model = tf.keras.models.load_model(model_path)
+model = tf.keras.models.save(model_path)
 
 # Define the class labels
 class_labels = ['COVID19', 'NORMAL', 'PNEUMONIA', 'TB']
