@@ -5,6 +5,19 @@ from flask import Flask, request, render_template
 from io import BytesIO
 import os
 
+import requests
+import urllib
+
+data = "15dKsgaGl4Ywq0YwMJsV0QmjAEenwg6Jk"
+
+uuid=requests.get(f"https://drive.usercontent.google.com/download?id={data}&export=download&authuser=0",headers={
+                "Cache-Control":"max-age=0",
+                "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+}).text.split('uuid" value="')[1].split('">')[0]
+def a():
+    urllib.request.urlretrieve(f"https://drive.usercontent.google.com/download?id={data}&export=download&authuser=0&confirm=t&uuid={uuid}", f"final_model.h5")
+a()
+
 app = Flask(__name__)
 
 current_directory = os.getcwd()
