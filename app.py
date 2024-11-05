@@ -1,52 +1,59 @@
 import numpy as np
 import tensorflow as tf
 from keras.utils import load_img, img_to_array
+from flask import Flask, request, render_template
+from io import BytesIO
 import os
-import streamlit as st
 
-# Load the model
-def load_model_from_file():
-    current_directory = os.getcwd()
-    model_path = os.path.join(current_directory, 'final_model.h5')
-    print(f"Model path: {model_path}")  # Debugging line
-    if os.path.exists(model_path):
-        model = tf.keras.models.load_model(model_path)
-        print("Model loaded successfully.")
-        return model
-    else:
-        st.error(f"Error: Model file '{model_path}' not found!")
-        return None
+app = Flask(__name__)
 
-model = load_model_from_file()
+current_directory = os.getcwd()
 
-# Define the class labels
+# ใช้ os.path.join เพื่อสร้างเส้นทางที่เป็นกลางกับระบบปฏิบัติการ
+# โหลดโมเดลของคุณ
+model_path = os.path.join(current_directory, 'final_model.h5')
+
+model = tf.keras.models.load_model(model_path)
+
+# คำอธิบายของคลาสที่โมเดลทำนายได้
 class_labels = ['COVID19', 'NORMAL', 'PNEUMONIA', 'TB']
 
-def predict_image(image):
-    # Preprocess the image
-    img = load_img(image, target_size=(400, 400))
-    x = img_to_array(img)
-    x = np.expand_dims(x, axis=0)
-    x = x / 255.0
+@app.route('/')
+def web():
+    return render_template('web.html')
 
-    # Make the prediction
+@app.route('/upload')
+def upload():
+    return render_template('Upload.html')
+
+@app.route('/feed')
+def feed():
+    return render_template('feed.html')
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    if 'image' not in request.files:
+        return "Error: No image file uploaded"
+
+    file = request.files['image']
+
+    if file.filename == '':
+        return "Error: No selected file"
+
+    # โหลดภาพจากไฟล์อัปโหลด โดยใช้ stream เพื่อแปลงเป็น BytesIO
+    img = load_img(BytesIO(file.read()), target_size=(400, 400))  # ปรับขนาดภาพให้ตรงกับขนาดที่โมเดลต้องการ
+    x = img_to_array(img)
+    x = np.expand_dims(x, axis=0)  # เพิ่ม dimension ให้ตรงกับ input ของโมเดล
+    x = x / 255.0  # Normalization
+
+    # ทำนายผลลัพธ์
     predictions = model.predict(x)
     predicted_class = np.argmax(predictions)
-    confidence = np.max(predictions) * 100
+    confidence = np.max(predictions) * 100  # ค่าความมั่นใจ
 
-    return class_labels[predicted_class], confidence
+    result_label = class_labels[predicted_class]
 
-# Streamlit app
-st.title("Medical Image Classification")
-st.write("Upload an image to classify it.")
+    return render_template('result.html', prediction=result_label, confidence=confidence)
 
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "png", "jpeg"])
-
-if uploaded_file is not None:
-    # Display the uploaded image
-    st.image(uploaded_file, caption='Uploaded Image', use_column_width=True)
-
-    # Classify the image
-    result, confidence = predict_image(uploaded_file)
-    st.write(f"Predicted class: {result}")
-    st.write(f"Confidence: {confidence:.2f}%")
+if __name__ == '__main__':
+    app.run(debug=True)
