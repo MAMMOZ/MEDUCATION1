@@ -13,6 +13,10 @@ st.set_page_config(
     layout="wide"
 )
 
+# Paths
+MODEL_DIR = "models"
+MODEL_PATH = os.path.join(MODEL_DIR, "saved_model.h5")
+
 # ฟังก์ชันสำหรับโหลดโมเดล
 def load_keras_model(model_path):
     try:
@@ -22,6 +26,10 @@ def load_keras_model(model_path):
     except Exception as e:
         st.error(f"เกิดข้อผิดพลาดในการโหลดโมเดล: {str(e)}")
         return None
+
+# ตรวจสอบว่าโมเดลที่เคยอัพโหลดไว้มีอยู่หรือไม่
+if os.path.exists(MODEL_PATH):
+    st.session_state.model = load_keras_model(MODEL_PATH)
 
 # Sidebar for model configuration
 with st.sidebar:
@@ -35,25 +43,20 @@ with st.sidebar:
     if load_method == "อัพโหลดไฟล์โมเดล":
         uploaded_model = st.file_uploader("อัพโหลดไฟล์โมเดล", type=['h5'])
         if uploaded_model:
-            with open("temp_model.h5", "wb") as f:
+            # ตรวจสอบให้แน่ใจว่าโฟลเดอร์สำหรับโมเดลมีอยู่
+            os.makedirs(MODEL_DIR, exist_ok=True)
+            with open(MODEL_PATH, "wb") as f:
                 f.write(uploaded_model.getbuffer())
-            st.session_state.model_path = "temp_model.h5"
-            st.session_state.model = load_keras_model(st.session_state.model_path)
+            st.session_state.model = load_keras_model(MODEL_PATH)
     else:
-        default_path = os.path.join(os.getcwd(), 'modellittle.h5')
-        model_path = st.text_input("ระบุเส้นทางไฟล์โมเดล", value=default_path)
+        model_path = st.text_input("ระบุเส้นทางไฟล์โมเดล")
         if model_path:
-            st.session_state.model_path = model_path
-            st.session_state.model = load_keras_model(st.session_state.model_path)
+            st.session_state.model = load_keras_model(model_path)
 
     # ปุ่มโหลดโมเดล
     if st.button("โหลดโมเดล"):
-        if 'model_path' in st.session_state:
-            st.session_state.model = load_keras_model(st.session_state.model_path)
-
-# ตรวจสอบว่ามีโมเดลอยู่ใน session_state แล้วหรือไม่
-if 'model' not in st.session_state:
-    st.warning("กรุณาโหลดโมเดลก่อนใช้งาน โดยเลือกวิธีการโหลดโมเดลในแถบด้านซ้าย")
+        if MODEL_PATH:
+            st.session_state.model = load_keras_model(MODEL_PATH)
 
 # Class labels
 class_labels = ['COVID19', 'NORMAL', 'PNEUMONIA', 'TB']
